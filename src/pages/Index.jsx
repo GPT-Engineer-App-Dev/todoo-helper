@@ -5,6 +5,7 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 const Index = () => {
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState("");
+  const [filter, setFilter] = useState("all");
 
   const handleAddTask = () => {
     if (input.trim() !== "") {
@@ -45,26 +46,42 @@ const Index = () => {
           <FaPlus />
         </Button>
       </Flex>
+      <Flex mb={4} justifyContent="center">
+        <Button mr={2} onClick={() => setFilter("all")} colorScheme="teal">
+          All
+        </Button>
+        <Button mr={2} onClick={() => setFilter("active")} colorScheme="teal">
+          Active
+        </Button>
+        <Button onClick={() => setFilter("completed")} colorScheme="teal">
+          Completed
+        </Button>
+      </Flex>
       <List spacing={3}>
-        {tasks.map((task) => (
-          <Fade in={true} key={task.id}>
-            <ListItem display="flex" alignItems="center" onClick={() => handleToggleComplete(task.id)} cursor="pointer">
-              <Checkbox isChecked={task.isCompleted} mr={2} />
-              <Text flex={1} as={task.isCompleted ? "del" : undefined} textDecoration={task.isCompleted ? "line-through" : "none"}>
-                {task.text}
-              </Text>
-              <IconButton
-                icon={<FaTrash />}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRemoveTask(task.id);
-                }}
-                colorScheme="red"
-                aria-label="Delete task"
-              />
-            </ListItem>
-          </Fade>
-        ))}
+        {tasks
+          .filter((task) => {
+            if (filter === "all") return true;
+            return filter === "completed" ? task.isCompleted : !task.isCompleted;
+          })
+          .map((task) => (
+            <Fade in={true} key={task.id}>
+              <ListItem display="flex" alignItems="center" onClick={() => handleToggleComplete(task.id)} cursor="pointer">
+                <Checkbox isChecked={task.isCompleted} mr={2} />
+                <Text flex={1} as={task.isCompleted ? "del" : undefined} textDecoration={task.isCompleted ? "line-through" : "none"}>
+                  {task.text}
+                </Text>
+                <IconButton
+                  icon={<FaTrash />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemoveTask(task.id);
+                  }}
+                  colorScheme="red"
+                  aria-label="Delete task"
+                />
+              </ListItem>
+            </Fade>
+          ))}
       </List>
     </Box>
   );
