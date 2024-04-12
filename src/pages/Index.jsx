@@ -27,9 +27,6 @@ const Index = () => {
     setTasks(
       tasks.map((task) => {
         if (task.id === id) {
-          setTimeout(() => {
-            setTasks((prevTasks) => prevTasks.filter((t) => t.id !== id));
-          }, 400);
           return { ...task, isCompleted: !task.isCompleted };
         }
         return task;
