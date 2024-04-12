@@ -37,9 +37,9 @@ const Index = () => {
       </Flex>
       <List spacing={3}>
         {tasks.map((task) => (
-          <ListItem key={task.id} display="flex" alignItems="center">
-            <Checkbox isChecked={task.isCompleted} onChange={() => handleToggleComplete(task.id)} mr={2} />
-            <Text flex={1} as={task.isCompleted ? "del" : undefined}>
+          <ListItem key={task.id} display="flex" alignItems="center" onClick={() => handleToggleComplete(task.id)} cursor="pointer">
+            <Checkbox isChecked={task.isCompleted} mr={2} />
+            <Text flex={1} as={task.isCompleted ? "del" : undefined} textDecoration={task.isCompleted ? "line-through" : "none"}>
               {task.text}
             </Text>
             <IconButton icon={<FaTrash />} onClick={() => handleRemoveTask(task.id)} colorScheme="red" aria-label="Delete task" />
