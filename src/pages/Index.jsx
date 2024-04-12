@@ -47,13 +47,13 @@ const Index = () => {
         </Button>
       </Flex>
       <Flex mb={4} justifyContent="center">
-        <Button mr={2} onClick={() => setFilter("all")} colorScheme="teal">
+        <Button mr={2} onClick={() => setFilter("all")} colorScheme={filter === "all" ? "blue" : "teal"}>
           All
         </Button>
-        <Button mr={2} onClick={() => setFilter("active")} colorScheme="teal">
+        <Button mr={2} onClick={() => setFilter("active")} colorScheme={filter === "active" ? "blue" : "teal"}>
           Active
         </Button>
-        <Button onClick={() => setFilter("completed")} colorScheme="teal">
+        <Button onClick={() => setFilter("completed")} colorScheme={filter === "completed" ? "blue" : "teal"}>
           Completed
         </Button>
       </Flex>
