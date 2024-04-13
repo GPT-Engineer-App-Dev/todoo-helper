@@ -48,7 +48,7 @@ const Index = () => {
   };
 
   return (
-    <Box p={5}>
+    <Box p={5} maxW="xl" w="90%" mx="auto">
       <Heading mb={4}>Todo App</Heading>
       <Flex mb={4}>
         <Input placeholder="Add a new task" value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={(e) => e.key === "Enter" && handleAddTask()} />
