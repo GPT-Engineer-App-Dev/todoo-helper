@@ -34,6 +34,19 @@ const Index = () => {
     );
   };
 
+  const filteredTasks = () => {
+    switch (filter) {
+      case "all":
+        return tasks;
+      case "active":
+        return tasks.filter((task) => !task.isCompleted);
+      case "completed":
+        return tasks.filter((task) => task.isCompleted);
+      default:
+        return tasks;
+    }
+  };
+
   return (
     <Box p={5}>
       <Heading mb={4}>Todo App</Heading>
@@ -54,32 +67,7 @@ const Index = () => {
           Completed
         </Button>
       </Flex>
-      <List spacing={3}>
-        {tasks
-          .filter((task) => {
-            if (filter === "all") return true;
-            return filter === "completed" ? task.isCompleted : !task.isCompleted;
-          })
-          .map((task) => (
-            <Fade in={true} key={task.id}>
-              <ListItem display="flex" alignItems="center" onClick={() => handleToggleComplete(task.id)} cursor="pointer">
-                <Checkbox isChecked={task.isCompleted} mr={2} />
-                <Text flex={1} as={task.isCompleted ? "del" : undefined} textDecoration={task.isCompleted ? "line-through" : "none"}>
-                  {task.text}
-                </Text>
-                <IconButton
-                  icon={<FaTrash />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleRemoveTask(task.id);
-                  }}
-                  colorScheme="red"
-                  aria-label="Delete task"
-                />
-              </ListItem>
-            </Fade>
-          ))}
-      </List>
+      <List spacing={3}></List>
     </Box>
   );
 };
