@@ -67,7 +67,17 @@ const Index = () => {
           Completed
         </Button>
       </Flex>
-      <List spacing={3}></List>
+      <List spacing={3}>
+        {filteredTasks().map((task) => (
+          <ListItem key={task.id} d="flex" alignItems="center">
+            <Checkbox isChecked={task.isCompleted} onChange={() => handleToggleComplete(task.id)} mr={2} />
+            <Text flex={1} as={task.isCompleted ? "s" : ""}>
+              {task.text}
+            </Text>
+            <IconButton icon={<FaTrash />} onClick={() => handleRemoveTask(task.id)} colorScheme="red" aria-label="Delete task" />
+          </ListItem>
+        ))}
+      </List>
     </Box>
   );
 };
